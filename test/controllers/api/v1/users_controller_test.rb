@@ -26,7 +26,6 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
 
   test 'should not create user with taken email' do
     assert_no_difference('User.count') do
-
       post api_v1_users_url, params: {
         user: { 
           email: @user.email,
@@ -34,6 +33,26 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
          }
       }, as: :json
     end
+    assert_response :unprocessable_entity
+  end
+
+  test 'should update user' do
+    patch api_v1_users_url(@user), params: {
+      user: {
+        email: @user.email,
+        password: '123456'
+      }
+    }, as: :json
+    assert_response :success
+  end
+
+  test 'should not update when invalid params are send' do
+    patch api_v1_users_url(@user), params: {
+      user: {
+        email: 'bad_email',
+        password: @user
+      }
+    }, as: :json
     assert_response :unprocessable_entity
   end
 
