@@ -2,8 +2,7 @@ require 'test_helper'
 
 class ProductTest < ActiveSupport::TestCase
   setup do
-    @product= products(:one)
-    
+    @product= products(:one)    
   end
 
   test 'should have a valid positive price' do
