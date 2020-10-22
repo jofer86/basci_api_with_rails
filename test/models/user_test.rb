@@ -13,7 +13,7 @@ class UserTest < ActiveSupport::TestCase
 
   test 'user with taken email should be invalid' do
     other_user = users(:one)
-    user = User.new(email: other_user.email, password_digest:'test')
+    user = User.new(email: other_user.email, password_digest: 'test')
     assert_not user.valid?
   end
 
@@ -22,6 +22,4 @@ class UserTest < ActiveSupport::TestCase
       users(:one).destroy
     end
   end
-
-
 end

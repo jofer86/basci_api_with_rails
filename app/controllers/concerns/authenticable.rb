@@ -1,17 +1,17 @@
 module Authenticable
-    def current_user
-        return @current_user if @current_user
-        header = request.headers['Authorization']
-        return nil if header.nil?
+  def current_user
+    return @current_user if @current_user
 
-        decoded = JsonWebToken.decode(header)
-        @current_user = User.find(decoded[:user_id]) rescue ActiveRecord::RecordNotFound 
-    end
+    header = request.headers['Authorization']
+    return nil if header.nil?
 
-    protected
+    decoded = JsonWebToken.decode(header)
+    @current_user = User.find(decoded[:user_id]) rescue ActiveRecord::RecordNotFound
+  end
 
-    def check_login
-        head :forbidden unless self.current_user
-    end
+  protected
 
+  def check_login
+    head :forbidden unless self.current_user
+  end
 end

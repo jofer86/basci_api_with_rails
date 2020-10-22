@@ -47,3 +47,5 @@ gem "jwt", "~> 2.2"
 gem "faker", "~> 2.14"
 
 gem "fast_jsonapi", "~> 1.5"
+
+gem "rubocop", "~> 1.0"

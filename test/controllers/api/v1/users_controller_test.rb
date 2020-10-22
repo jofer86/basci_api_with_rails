@@ -15,10 +15,10 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
   test 'should create user' do
     assert_difference('User.count') do
       post api_v1_users_url, params: {
-        user: { 
+        user: {
           email: 'user@example',
           password: '123456'
-         }
+        }
       }, as: :json
     end
     assert_response :created
@@ -27,33 +27,33 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
   test 'should not create user with taken email' do
     assert_no_difference('User.count') do
       post api_v1_users_url, params: {
-        user: { 
+        user: {
           email: @user.email,
           password: '123456'
-         }
+        }
       }, as: :json
     end
     assert_response :unprocessable_entity
   end
 
   test 'should update user' do
-    patch api_v1_user_url(@user), 
-    params: {
-      user: {
-        email: @user.email,
-        password: '123456'
-      }
-    },
-    headers: { 
-      Authorization: JsonWebToken.encode(user_id: @user.id)
-     }, 
-    as: :json
+    patch api_v1_user_url(@user),
+          params: {
+            user: {
+              email: @user.email,
+              password: '123456'
+            }
+          },
+          headers: {
+            Authorization: JsonWebToken.encode(user_id: @user.id)
+          },
+          as: :json
     assert_response :success
   end
 
   test 'should forbid update user' do
-    patch api_v1_user_url(@user), params: { 
-      user: { 
+    patch api_v1_user_url(@user), params: {
+      user: {
         email: @user.email
       },
     }, as: :json
@@ -67,16 +67,16 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
         password: '123456'
       }
     },
-    headers: {
-      Authorization: JsonWebToken.encode(user_id: @user.id)
-    },
-    as: :json
+                                  headers: {
+                                    Authorization: JsonWebToken.encode(user_id: @user.id)
+                                  },
+                                  as: :json
     assert_response :unprocessable_entity
   end
 
   test 'should destroy user' do
     assert_difference('User.count', -1) do
-      delete api_v1_user_url(@user), headers: { 
+      delete api_v1_user_url(@user), headers: {
         Authorization: JsonWebToken.encode(user_id: @user.id)
       }, as: :json
     end
@@ -89,5 +89,4 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
     end
     assert_response :forbidden
   end
-
 end
