@@ -9,10 +9,10 @@ class Api::V1::ProductsControllerTest < ActionDispatch::IntegrationTest
   test 'should show products' do
     get api_v1_products_url, as: :json
     assert_response :success
-
-    json_response = JSON.parse(response.body, simbolize_names: true)
-    assert_equal @product.title, json_response['data'][0]['attributes']['title']
-    assert_equal @product.user.id.to_s, json_response['data'][1]['relationships']['user']['data']['id']
+    json_response = JSON.parse(self.response.body, symbolize_names: true)
+    assert_equal @product.title, json_response[:data][0][:attributes][:title]
+    assert_equal @product.user.id.to_s, json_response[:data][1][:relationships][:user][:data][:id]
+    # assert_equal @product.user.email, json_response[:included]
   end
 
   test 'should show product' do
