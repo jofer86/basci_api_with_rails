@@ -1,5 +1,9 @@
 class Product < ApplicationRecord
   belongs_to :user
+  has_many :placements, dependent: :destroy
+  has_many :orders, through: :placements
+
+
   validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :title, :user_id, presence: true
   
