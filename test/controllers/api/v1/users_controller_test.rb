@@ -8,7 +8,7 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
   test 'should show user' do
     get api_v1_user_url(@user), as: :json
     assert_response :success
-    json_response = JSON.parse(self.response.body, symbolize_names: true)
+    json_response = JSON.parse(response.body, symbolize_names: true)
     assert_equal @user.email, json_response[:data][:attributes][:email]
     assert_equal @user.products.first.id.to_s, json_response[:data][:relationships][:products][:data][0][:id]
   end
@@ -68,10 +68,10 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
         password: '123456'
       }
     },
-                                  headers: {
-                                    Authorization: JsonWebToken.encode(user_id: @user.id)
-                                  },
-                                  as: :json
+    headers: {
+      Authorization: JsonWebToken.encode(user_id: @user.id)
+    },
+    as: :json
     assert_response :unprocessable_entity
   end
 
