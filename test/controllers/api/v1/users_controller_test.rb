@@ -68,10 +68,10 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
         password: '123456'
       }
     },
-                                  headers: {
-                                    Authorization: JsonWebToken.encode(user_id: @user.id)
-                                  },
-                                  as: :json
+    headers: {
+      Authorization: JsonWebToken.encode(user_id: @user.id)
+    },
+    as: :json
     assert_response :unprocessable_entity
   end
 
